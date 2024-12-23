@@ -48,6 +48,8 @@ namespace WhiteLagoon.UI.Controllers
                 _context.Villas.Add(newVilla);
                 _context.SaveChanges();
 
+                TempData["success"] = "The villa has been created successfully.";
+
                 return RedirectToAction("Index");
             }
 
@@ -97,6 +99,9 @@ namespace WhiteLagoon.UI.Controllers
                 villa.ImageUrl = item.ImageUrl;
 
                 _context.SaveChanges();
+
+                TempData["success"] = "The villa has been updated successfully.";
+
                 return RedirectToAction("Index");
             }
             return View(item);
@@ -120,6 +125,9 @@ namespace WhiteLagoon.UI.Controllers
             {
                 _context.Villas.Remove(villa);
                 _context.SaveChanges();
+
+                TempData["success"] = "The villa has been deleted successfully.";
+
                 return RedirectToAction("Index");
             }
             return View();
