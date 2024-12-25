@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Application.DTOs;
 using WhiteLagoon.Domain.Entities;
-using WhiteLagoon.Infrastructure.Context;
 
 namespace WhiteLagoon.UI.Controllers
 {
     public class VillaController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public VillaController(ApplicationDbContext context)
+        public VillaController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            var villas = _context.Villas.ToList();
+            var villas = _unitOfWork.Villa.GetAll();
             return View(villas);
         }
 
@@ -45,8 +45,8 @@ namespace WhiteLagoon.UI.Controllers
                     ImageUrl = item.ImageUrl,
                 };
 
-                _context.Villas.Add(newVilla);
-                _context.SaveChanges();
+                _unitOfWork.Villa.Add(newVilla);
+                _unitOfWork.Save();
 
                 TempData["success"] = "The villa has been created successfully.";
 
@@ -58,7 +58,7 @@ namespace WhiteLagoon.UI.Controllers
 
         public IActionResult Update(Guid villaId)
         {
-            var villa = _context.Villas.FirstOrDefault(v => v.Id == villaId);
+            var villa = _unitOfWork.Villa.Get(v => v.Id == villaId);
 
             if (villa == null)
             {
@@ -84,7 +84,7 @@ namespace WhiteLagoon.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var villa = _context.Villas.FirstOrDefault(v => v.Id == item.Id);
+                var villa = _unitOfWork.Villa.Get(v => v.Id == item.Id);
 
                 if (villa == null)
                 {
@@ -98,7 +98,8 @@ namespace WhiteLagoon.UI.Controllers
                 villa.Occupancy = item.Occupancy;
                 villa.ImageUrl = item.ImageUrl;
 
-                _context.SaveChanges();
+                _unitOfWork.Villa.Update(villa);
+                _unitOfWork.Save();
 
                 TempData["success"] = "The villa has been updated successfully.";
 
@@ -109,7 +110,7 @@ namespace WhiteLagoon.UI.Controllers
 
         public IActionResult Delete(Guid villaId)
         {
-            var villa = _context.Villas.FirstOrDefault(v => v.Id == villaId);
+            var villa = _unitOfWork.Villa.Get(v => v.Id == villaId);
             if (villa == null)
             {
                 return View("~/Views/Shared/NotFound.cshtml");
@@ -120,11 +121,11 @@ namespace WhiteLagoon.UI.Controllers
         [HttpPost]
         public IActionResult Delete(Villa item)
         {
-            var villa = _context.Villas.FirstOrDefault(v => v.Id == item.Id);
+            var villa = _unitOfWork.Villa.Get(v => v.Id == item.Id);
             if (villa != null)
             {
-                _context.Villas.Remove(villa);
-                _context.SaveChanges();
+                _unitOfWork.Villa.Remove(villa);
+                _unitOfWork.Save();
 
                 TempData["success"] = "The villa has been deleted successfully.";
 
