@@ -18,5 +18,6 @@ namespace WhiteLagoon.Domain.Entities
         public int Sqft { get; set; }
         public int Occupancy { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
+        public IEnumerable<Amenity>? Amenities { get; set; }
     }
 }
