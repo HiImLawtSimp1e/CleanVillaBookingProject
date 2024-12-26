@@ -90,6 +90,73 @@ namespace WhiteLagoon.Infrastructure.Initialization
                     Villa_Number = 302,
                     VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a"),
                 });
+            builder.Entity<Amenity>().HasData(
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e"),
+                    Name = "Private Pool"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e"),
+                    Name = "Microwave"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e"),
+                    Name = "Private Balcony"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e"),
+                    Name = "1 king bed and 1 sofa bed"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae"),
+                    Name = "Private Plunge Pool"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae"),
+                    Name = "Microwave and Mini Refrigerator"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae"),
+                    Name = "Private Balcony"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae"),
+                    Name = "king bed or 2 double beds"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a"),
+                    Name = "Private Pool"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a"),
+                    Name = "Jacuzzi"
+                }, 
+                new Amenity
+                {
+                    Id = Guid.NewGuid(),
+                    VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a"),
+                    Name = "Private Balcony"
+                });
         }
     }
 }
