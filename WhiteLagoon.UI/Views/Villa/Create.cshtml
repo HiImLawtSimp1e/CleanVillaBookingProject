@@ -1,4 +1,4 @@
-﻿@model WhiteLagoon.Application.DTOs.CreateVillaDto
+﻿@model CreateVillaDto
 
 <div class="w-100 card border-0 p-4">
     <div class="card-header bg-success bg-gradient ml-0 py-3">
@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="card-body border p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <div class="p-3">
                 <div class="form-floating py-1 col-12">
                     <input asp-for="Name" class="form-control border shadow" />
@@ -37,9 +37,9 @@
                     <span asp-validation-for="Occupancy" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input asp-for="ImageUrl" class="form-control border shadow" />
-                    <label asp-for="ImageUrl" class="ms-2"></label>
-                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    <input asp-for="Image" class="form-control border shadow" />
+                    <label asp-for="Image" class="ms-2"></label>
+                    <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">

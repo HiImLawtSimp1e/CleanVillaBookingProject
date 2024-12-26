@@ -18,5 +18,9 @@
   <ItemGroup>
     <ProjectReference Include="..\WhiteLagoon.Domain\WhiteLagoon.Domain.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
 </Project>

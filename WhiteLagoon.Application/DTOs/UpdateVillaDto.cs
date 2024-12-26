@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace WhiteLagoon.Application.DTOs
         public int Sqft { get; set; }
         [Range(1, 10)]
         public int Occupancy { get; set; }
+        public IFormFile? Image { get; set; }
         [Display(Name = "Image Url")]
         public string ImageUrl { get; set; } = string.Empty;
     }
