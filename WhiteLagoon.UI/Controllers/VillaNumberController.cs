@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WhiteLagoon.Application.Common.Interfaces;
+using WhiteLagoon.Application.Common.Utility;
 using WhiteLagoon.Application.DTOs;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Infrastructure.Context;
 
 namespace WhiteLagoon.UI.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class VillaNumberController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

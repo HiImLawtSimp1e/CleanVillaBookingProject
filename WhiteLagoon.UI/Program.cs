@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WhiteLagoon.Application.Common.Interfaces;
+using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Infrastructure.Context;
 using WhiteLagoon.Infrastructure.Repository;
 
@@ -17,9 +19,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         )
     );
 
+// Registering .NET Identity
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 // Repository Registration (using UnitOfWork pattern)
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Configuring Application Cookie
+
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.AccessDeniedPath = "/Account/AccessDenied";
+    option.LoginPath = "/Account/Login";
+});
 
 var app = builder.Build();
 
