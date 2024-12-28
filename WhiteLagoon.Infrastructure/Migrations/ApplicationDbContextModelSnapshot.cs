@@ -155,7 +155,98 @@ namespace WhiteLagoon.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WhiteLagoon.Domain.ApplicationUser", b =>
+            modelBuilder.Entity("WhiteLagoon.Domain.Entities.Amenity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("VillaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VillaId");
+
+                    b.ToTable("Amenities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c424c45f-9088-44d5-b10c-ea4a1c44f45a"),
+                            Name = "Private Pool",
+                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
+                        },
+                        new
+                        {
+                            Id = new Guid("aa355bf4-028b-4af0-bf07-1617fa6f3c68"),
+                            Name = "Microwave",
+                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
+                        },
+                        new
+                        {
+                            Id = new Guid("4c054e29-f099-4a03-8811-4e326f24d01c"),
+                            Name = "Private Balcony",
+                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
+                        },
+                        new
+                        {
+                            Id = new Guid("291bfe85-44df-45e2-b870-bbcc3eb7f101"),
+                            Name = "1 king bed and 1 sofa bed",
+                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
+                        },
+                        new
+                        {
+                            Id = new Guid("9536c793-f4a6-4e63-a28e-c1df6d2abaac"),
+                            Name = "Private Plunge Pool",
+                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
+                        },
+                        new
+                        {
+                            Id = new Guid("ccb8692f-b5b6-4729-bffa-05bfce02f508"),
+                            Name = "Microwave and Mini Refrigerator",
+                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
+                        },
+                        new
+                        {
+                            Id = new Guid("7a3c285a-b2da-49a7-822b-45b11bc70b11"),
+                            Name = "Private Balcony",
+                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
+                        },
+                        new
+                        {
+                            Id = new Guid("8dbcf618-a23f-4cf0-a3f9-b3a62bff30cd"),
+                            Name = "king bed or 2 double beds",
+                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
+                        },
+                        new
+                        {
+                            Id = new Guid("ad584f3a-89f2-4161-8b3c-caf917fc02b2"),
+                            Name = "Private Pool",
+                            VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a")
+                        },
+                        new
+                        {
+                            Id = new Guid("3a67d691-f7cd-4c9e-af5e-d5bfbf188766"),
+                            Name = "Jacuzzi",
+                            VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a")
+                        },
+                        new
+                        {
+                            Id = new Guid("d9272cd2-f9e3-4106-b459-fb9f32d75084"),
+                            Name = "Private Balcony",
+                            VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a")
+                        });
+                });
+
+            modelBuilder.Entity("WhiteLagoon.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -227,95 +318,76 @@ namespace WhiteLagoon.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("WhiteLagoon.Domain.Entities.Amenity", b =>
+            modelBuilder.Entity("WhiteLagoon.Domain.Entities.Booking", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
+                    b.Property<DateTime>("ActualCheckInDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ActualCheckOutDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("CheckInDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("CheckOutDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPaymentSuccessful")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Nights")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StripePaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StripeSessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalCost")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid>("VillaId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("VillaNumber")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("VillaId");
 
-                    b.ToTable("Amenities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("053b8cee-69ab-411b-938f-00d17f84b075"),
-                            Name = "Private Pool",
-                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
-                        },
-                        new
-                        {
-                            Id = new Guid("36d1a049-69a8-45e1-a36f-c6bdceb31ec5"),
-                            Name = "Microwave",
-                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
-                        },
-                        new
-                        {
-                            Id = new Guid("1291dddb-7ccb-4746-8864-8532bce246a9"),
-                            Name = "Private Balcony",
-                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
-                        },
-                        new
-                        {
-                            Id = new Guid("a539cea1-5bf4-41bf-b69c-1303c1fd7f11"),
-                            Name = "1 king bed and 1 sofa bed",
-                            VillaId = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e")
-                        },
-                        new
-                        {
-                            Id = new Guid("c3585395-5d40-4d71-bdc2-cd911c1efeea"),
-                            Name = "Private Plunge Pool",
-                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
-                        },
-                        new
-                        {
-                            Id = new Guid("401d1f6c-256a-427d-934a-cd332619e49d"),
-                            Name = "Microwave and Mini Refrigerator",
-                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
-                        },
-                        new
-                        {
-                            Id = new Guid("25520af0-5e1a-4987-aec7-808174f074d3"),
-                            Name = "Private Balcony",
-                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
-                        },
-                        new
-                        {
-                            Id = new Guid("e5b4c4d9-fb55-4099-aead-9e513700721f"),
-                            Name = "king bed or 2 double beds",
-                            VillaId = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae")
-                        },
-                        new
-                        {
-                            Id = new Guid("c8d5e014-7f65-4df2-9272-3108ef0f6cc1"),
-                            Name = "Private Pool",
-                            VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("0445c164-6534-44e3-8e2a-bb07ecf2d6e2"),
-                            Name = "Jacuzzi",
-                            VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("777d35a1-25e9-4153-9f15-b22f1334d6ee"),
-                            Name = "Private Balcony",
-                            VillaId = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a")
-                        });
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("WhiteLagoon.Domain.Entities.Villa", b =>
@@ -359,7 +431,7 @@ namespace WhiteLagoon.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("22c2f426-2256-4db1-b5b9-881f13b91b7e"),
-                            CreatedDate = new DateTime(2024, 12, 27, 16, 57, 47, 41, DateTimeKind.Local).AddTicks(1063),
+                            CreatedDate = new DateTime(2024, 12, 29, 2, 50, 47, 597, DateTimeKind.Local).AddTicks(1944),
                             Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa",
@@ -370,7 +442,7 @@ namespace WhiteLagoon.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("6b359322-86e1-43c4-9eac-57bf9054d1ae"),
-                            CreatedDate = new DateTime(2024, 12, 27, 16, 57, 47, 41, DateTimeKind.Local).AddTicks(1105),
+                            CreatedDate = new DateTime(2024, 12, 29, 2, 50, 47, 597, DateTimeKind.Local).AddTicks(1977),
                             Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             ImageUrl = "https://placehold.co/600x401",
                             Name = "Premium Pool Villa",
@@ -381,7 +453,7 @@ namespace WhiteLagoon.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("4e93d429-8b79-4313-91e9-0a2b9c2c5d6a"),
-                            CreatedDate = new DateTime(2024, 12, 27, 16, 57, 47, 41, DateTimeKind.Local).AddTicks(1109),
+                            CreatedDate = new DateTime(2024, 12, 29, 2, 50, 47, 597, DateTimeKind.Local).AddTicks(1980),
                             Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             ImageUrl = "https://placehold.co/600x402",
                             Name = "Luxury Pool Villa",
@@ -467,7 +539,7 @@ namespace WhiteLagoon.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WhiteLagoon.Domain.ApplicationUser", null)
+                    b.HasOne("WhiteLagoon.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -476,7 +548,7 @@ namespace WhiteLagoon.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WhiteLagoon.Domain.ApplicationUser", null)
+                    b.HasOne("WhiteLagoon.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -491,7 +563,7 @@ namespace WhiteLagoon.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WhiteLagoon.Domain.ApplicationUser", null)
+                    b.HasOne("WhiteLagoon.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -500,7 +572,7 @@ namespace WhiteLagoon.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WhiteLagoon.Domain.ApplicationUser", null)
+                    b.HasOne("WhiteLagoon.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -514,6 +586,25 @@ namespace WhiteLagoon.Infrastructure.Migrations
                         .HasForeignKey("VillaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Villa");
+                });
+
+            modelBuilder.Entity("WhiteLagoon.Domain.Entities.Booking", b =>
+                {
+                    b.HasOne("WhiteLagoon.Domain.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhiteLagoon.Domain.Entities.Villa", "Villa")
+                        .WithMany()
+                        .HasForeignKey("VillaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
 
                     b.Navigation("Villa");
                 });
