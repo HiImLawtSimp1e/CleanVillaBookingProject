@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +20,7 @@ namespace WhiteLagoon.Domain.Entities
         public int Occupancy { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
         public IEnumerable<Amenity>? Amenities { get; set; }
+        [NotMapped]
+        public bool IsAvailable { get; set; } = true;
     }
 }
