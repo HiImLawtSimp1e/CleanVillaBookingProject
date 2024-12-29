@@ -13,7 +13,7 @@ This is my simple excercise to learn Clean Architecture & Domain-Driven Desgin
     Change ConnectionStrings in `WhiteLagoon.UI`
     ```sh
      "ConnectionStrings": {
-    "DefaultConnection": "server=<Your Data Source>;database=blazorecommerce;trusted_connection=true"
+    "DefaultConnection": "server=<Your Data Source>;database=<Your Database Name>;trusted_connection=true"
     },
     ```
  1. **Step 3.**
