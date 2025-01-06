@@ -1,0 +1,16 @@
+bin/
+obj/
+
+*.user
+*.suo
+
+.vs/
+
+*.log
+*.tmp
+*.swp
+
+.DS_Store
+Thumbs.db
+
+Generated_Code/
