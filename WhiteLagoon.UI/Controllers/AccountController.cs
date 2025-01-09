@@ -44,13 +44,21 @@ namespace WhiteLagoon.UI.Controllers
                 {
 
 
-                    if (string.IsNullOrEmpty(item.RedirectUrl))
+                    var user = await _userManager.FindByEmailAsync(item.Email);
+                    if (await _userManager.IsInRoleAsync(user, SD.Role_Admin))
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Dashboard");
                     }
                     else
                     {
-                        return LocalRedirect(item.RedirectUrl);
+                        if (string.IsNullOrEmpty(item.RedirectUrl))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return LocalRedirect(item.RedirectUrl);
+                        }
                     }
                 }
                 else
