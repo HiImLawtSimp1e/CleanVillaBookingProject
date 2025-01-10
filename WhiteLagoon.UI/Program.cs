@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WhiteLagoon.Application.Common.Interfaces;
+using WhiteLagoon.Application.Services.Implementation;
+using WhiteLagoon.Application.Services.Interface;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Infrastructure.Context;
 using WhiteLagoon.Infrastructure.Repository;
@@ -27,6 +29,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 // Repository Registration (using UnitOfWork pattern)
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Service Registration
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 // Configuring Application Cookie
 
