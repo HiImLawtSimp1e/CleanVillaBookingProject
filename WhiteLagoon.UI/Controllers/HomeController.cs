@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WhiteLagoon.Application.Common.Interfaces;
-using WhiteLagoon.Application.Common.Utility;
+using WhiteLagoon.Application.Services.Interface;
 using WhiteLagoon.UI.Models;
 using WhiteLagoon.UI.ViewModels;
 
@@ -9,18 +8,18 @@ namespace WhiteLagoon.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IVillaService _villaService;
 
-        public HomeController(IUnitOfWork unitOfWork)
+        public HomeController(IVillaService villaService)
         {
-            _unitOfWork = unitOfWork;
+            _villaService = villaService;
         }
 
         public IActionResult Index()
         {
             HomeVM homeVM = new()
             {
-                VillaList = _unitOfWork.Villa.GetAll(includeProperties: "Amenities"),
+                VillaList = _villaService.GetAllVillas(),
                 Nights = 1,
                 CheckInDate = DateOnly.FromDateTime(DateTime.Now),
             };
@@ -30,19 +29,7 @@ namespace WhiteLagoon.UI.Controllers
         [HttpPost]
         public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
         {
-            var villaList = _unitOfWork.Villa.GetAll(includeProperties: "Amenities").ToList();
-
-            var villaNumbersList = _unitOfWork.VillaNumber.GetAll().ToList();
-            var bookedVillas = _unitOfWork.Booking.GetAll(u => u.Status == SD.StatusApproved ||
-            u.Status == SD.StatusCheckedIn).ToList();
-
-            foreach (var villa in villaList)
-            {
-                int roomAvailable = SD.VillaRoomsAvailable_Count
-                     (villa.Id, villaNumbersList, checkInDate, nights, bookedVillas);
-
-                villa.IsAvailable = roomAvailable > 0 ? true : false;
-            }
+            var villaList = _villaService.GetVillasAvailabilityByDate(nights, checkInDate);
 
             HomeVM homeVM = new()
             {
@@ -52,12 +39,6 @@ namespace WhiteLagoon.UI.Controllers
                 CheckOutDate = checkInDate.AddDays(nights)
             };
             return PartialView("_VillaListPartial", homeVM);
-        }
-
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
