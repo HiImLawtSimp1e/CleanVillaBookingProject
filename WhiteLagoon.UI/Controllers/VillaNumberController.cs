@@ -142,7 +142,7 @@ namespace WhiteLagoon.UI.Controllers
 
             TempData["error"] = "The villa number cannot delete";
 
-            return View();
+            return View(item);
         }
     }
 }
