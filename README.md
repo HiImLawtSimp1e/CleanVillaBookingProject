@@ -1,6 +1,6 @@
 # Clean Villa Booking Project
 
-This is my simple excercise to learn Clean Architecture & Domain-Driven Desgin
+This is my small excercise to simple implement Clean Architecture with Strategic Domain-Driven Desgin
 
 ## 🚀 Quick start
 
